@@ -3,9 +3,12 @@ import React from "react";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PostDetail from "./screens/PostDetail";
 const Home = React.lazy(() => import("./screens/Home"));
 const About = React.lazy(() => import("./screens/About"));
 const Contact = React.lazy(() => import("./screens/Contact"));
+const CreatePost = React.lazy(() => import("./screens/CreatePost"));
+const AllPosts = React.lazy(() => import("./screens/AllPosts"));
 
 function App() {
   return (
@@ -16,6 +19,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/posts" element={<AllPosts />} />
+            <Route path="/posts/:postId/:userId" element={<PostDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
