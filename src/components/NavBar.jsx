@@ -33,6 +33,11 @@ const NavBar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
+                <NavLink className="nav-link active" to="/create">
+                  CreatePost
+                </NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink className="nav-link" to="/about">
                   about
                 </NavLink>
