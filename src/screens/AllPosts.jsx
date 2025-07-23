@@ -1,67 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { API_BASE_URL } from "../config/constant";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 function AllPosts() {
-  const navigate = useNavigate();
   //Create a variable to store all posts and a set method to update the value of posts
   //useState hook helps us create this variable with empty array
   const [posts, setPosts] = useState([]);
   const [loader, setLoader] = useState(false);
 
-  function alertFunction(message, type) {
-    var wrapper = document.createElement("div");
-    wrapper.innerHTML =
-      '<div class="alert alert-' +
-      type +
-      ' alert-dismissible" role="alert">' +
-      message +
-      '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-
-    var alertPlaceholder = document.getElementById("alertMsg");
-    alertPlaceholder.append(wrapper);
-  }
-  //confim action to deltete a post
-
-  //delte a post from REST API
-  const deletePost = (postId) => {
-    let action = window.confirm("Are you sure you want to delete this post?");
-    if (action) {
-      //console.log(postId);
-      axios
-        .delete(`${API_BASE_URL}/posts/${postId}`)
-        .then((res) => {
-          console.log(res);
-          alertFunction(
-            `post with Id ${postId} deleted successfully`,
-            "success"
-          );
-          navigate("/posts");
-        })
-
-        //remove deleted post from posts array
-        // setPosts(posts.filter((post) => post.id !== postId));
-        //show success message
-        //   document.querySelector(
-        //     "#alertMsg"
-        //   ).innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
-        //   <strong>Success!</strong> Post deleted successfully.
-        //   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        // </div>`;
-        //   //clear alert message after 3 seconds
-        //   setTimeout(() => {
-        //     document.querySelector("#alertMsg").innerHTML = "";
-        //   }, 3000);
-        //   //console.log(posts)
-        // })
-        .catch((err) => {
-          console.log(err);
-          alertFunction("error ocuurd while delete", "danger");
-        });
-    }
-  };
-  //ES6 function to get all posts from REST API
   //function getAllPosts() {}
   //ES6 function to get all posts from REST API
   const getAllPosts = () => {
@@ -107,7 +53,7 @@ function AllPosts() {
                     <div className="card-body">
                       <h5 className="card-title">{post.title}</h5>
                       <p className="card-text">{post.body}</p>
-                      <div className="d-flex justify-content-between">
+                      <div className="d-grid border border-primary">
                         <Link
                           to={`/posts/${post.id}/${post.userId}`}
                           className="btn btn-primary text-uppercase"
@@ -115,20 +61,6 @@ function AllPosts() {
                           <i className="fa-solid fa-location-arrow me-1"></i>
                           Details
                         </Link>
-                        <Link
-                          to={`/create/${post.id}/${post.userId}`}
-                          className="btn btn-warning text-uppercase"
-                        >
-                          <i className="fa-solid fa-pen-to-square me-1"></i>
-                          Edit
-                        </Link>
-                        <button
-                          onClick={() => deletePost(post.id)}
-                          className="btn btn-danger text-uppercase"
-                        >
-                          <i className="fa-solid fa-trash me-1"></i>
-                          Delete
-                        </button>
                       </div>
                     </div>
                   </div>
