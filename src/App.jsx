@@ -25,7 +25,8 @@ import Login from "./screens/Login";
 import { initalUserState, userReducer } from "./reducers/userReducer";
 import MyAllPosts from "./screens/MyAllPosts";
 import React from "react";
-
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 export const UserContext = createContext();
 
 function DynamicRoutes() {
@@ -74,15 +75,17 @@ function App() {
   const [state, dispatch] = useReducer(userReducer, initalUserState);
 
   return (
-    <UserContext.Provider value={{ state: state, dispatch: dispatch }}>
-      <Router>
-        <div>
-          <NavBar></NavBar>
-          <DynamicRoutes />
-          <Footer />
-        </div>
-      </Router>
-    </UserContext.Provider>
+    <Provider store={store}>
+      <UserContext.Provider value={{ state: state, dispatch: dispatch }}>
+        <Router>
+          <div>
+            <NavBar></NavBar>
+            <DynamicRoutes />
+            <Footer />
+          </div>
+        </Router>
+      </UserContext.Provider>
+    </Provider>
   );
 }
 
